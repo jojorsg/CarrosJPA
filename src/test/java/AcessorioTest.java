@@ -1,0 +1,47 @@
+import br.com.josue.carros.Acessorio;
+import br.com.josue.carros.Carro;
+import br.com.josue.carros.dao.AcessorioDAO;
+import br.com.josue.carros.dao.CarroDAO;
+import br.com.josue.carros.dao.IAcessorioDAO;
+import br.com.josue.carros.dao.ICarroDAO;
+import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+
+public class AcessorioTest {
+
+    private IAcessorioDAO acessorioDAO;
+    private ICarroDAO carroDAO;
+
+    public AcessorioTest() {
+
+        acessorioDAO = new AcessorioDAO();
+        carroDAO = new CarroDAO();
+
+    }
+
+    @Test
+    public void cadastrar() {
+        Carro carro = criarCarro("7878");
+
+        Acessorio acessorio = new Acessorio();
+        acessorio.setCodigo("7878");
+        acessorio.setPreco(450L);
+        acessorio.setNome("Para-choque");
+        acessorio.setCarro(carro);
+        acessorio = acessorioDAO.cadastrar(acessorio);
+
+        assertNotNull (acessorio);
+        assertNotNull(acessorio.getId());
+    }
+
+    private Carro criarCarro(String codigo) {
+        Carro carro = new Carro();
+        carro.setCodigo(codigo);
+        carro.setDescricao("Carro já fora de linha");
+        carro.setPreco(53000L);
+        carro.setMarca(marca);
+        carro.setNome("Ecosport");
+        return carroDAO.cadastrar(carro);
+    }
+}
