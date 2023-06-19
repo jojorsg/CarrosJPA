@@ -1,9 +1,7 @@
 import br.com.josue.carros.Acessorio;
 import br.com.josue.carros.Carro;
-import br.com.josue.carros.dao.AcessorioDAO;
-import br.com.josue.carros.dao.CarroDAO;
-import br.com.josue.carros.dao.IAcessorioDAO;
-import br.com.josue.carros.dao.ICarroDAO;
+import br.com.josue.carros.Marca;
+import br.com.josue.carros.dao.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -12,11 +10,13 @@ public class AcessorioTest {
 
     private IAcessorioDAO acessorioDAO;
     private ICarroDAO carroDAO;
+    private IMarcaDAO marcaDAO;
 
     public AcessorioTest() {
 
         acessorioDAO = new AcessorioDAO();
         carroDAO = new CarroDAO();
+        marcaDAO = new MarcaDAO();
 
     }
 
@@ -36,6 +36,8 @@ public class AcessorioTest {
     }
 
     private Carro criarCarro(String codigo) {
+        Marca marca = criarMarca();
+
         Carro carro = new Carro();
         carro.setCodigo(codigo);
         carro.setDescricao("Carro já fora de linha");
@@ -43,5 +45,12 @@ public class AcessorioTest {
         carro.setMarca(marca);
         carro.setNome("Ecosport");
         return carroDAO.cadastrar(carro);
+    }
+
+    private Marca criarMarca() {
+        Marca marca = new Marca();
+        marca.setCodigo("1111");
+        marca.setNome("Ford");
+        return marcaDAO.cadastrar(marca);
     }
 }
